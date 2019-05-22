@@ -1,0 +1,22 @@
+{
+  "name": "modal-web-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./  -p 8080 -o -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbertozzo/modal-web-component.git"
+  },
+  "author": "Matteo Bertozzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbertozzo/modal-web-component/issues"
+  },
+  "homepage": "https://github.com/mbertozzo/modal-web-component#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
