@@ -5,14 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Modal Web Component</title>
+
+  <style>
+    * {
+      font-family: sans-serif;
+      line-height: 1;
+    }
+
+    button {
+      display: block;
+      font-size: 1rem;
+      border: none;
+      padding: 1rem 2rem;
+      margin: 10px 0;
+      text-decoration: none;
+      background: #0069ed;
+      color: #ffffff;
+      cursor: pointer;
+      text-align: center;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  </style>
 </head>
 <body>
   <h2>Modal Web Component</h2>
-  <modal-dialog>
-    <span slot="heading"><strong>Hello World!</strong></span>
+
+  <modal-dialog data-name="primary">
+    <span slot="heading"><strong>Hello World 1!</strong></span>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quas aliquam repellendus atque, eum ullam repellat fugit veniam voluptatibus perferendis cupiditate vero? Dolor magnam dolorum quidem dolorem, rerum debitis ipsa?</p>
+    <button id="close">Close</button>
+  </modal-dialog>
+
+  <modal-dialog data-name="secondary">
+    <span slot="heading"><strong>Hello World 2!</strong></span>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quas aliquam repellendus atque, eum ullam repellat fugit veniam voluptatibus perferendis cupiditate vero? Dolor magnam dolorum quidem dolorem, rerum debitis ipsa?</p>
   </modal-dialog>
-  <button id="trigger-modal">Open modal</button>
+
+  <button class="trigger-modal" data-modal="primary">Open modal 1</button>
+  <button class="trigger-modal" data-modal="secondary">Open modal 2</button>
+
   <script src="./src/modal.js"></script>
+  <script>
+    const closeButton = document.getElementById('close');
+    closeButton.addEventListener('click', () => {
+        const modalNode = document.querySelector(`[data-name=primary]`);
+        modalNode.open = false;
+    })
+  </script>
 </body>
 </html>

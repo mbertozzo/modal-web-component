@@ -26,16 +26,16 @@ const style = `
       background: rgba(0, 0, 0, 0.6);
       height: 100%;
       position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       width: 100%;
     }
     .dialog {
       background: #ffffff;
       max-width: 600px;
-      padding: 1rem;
+      padding: 2rem;
       position: fixed;
       border-radius: 5px;
       box-shadow: 5px 5px 20px #424242;
@@ -45,14 +45,14 @@ const style = `
       cursor: pointer;
       font-size: 1.25rem;
       position: absolute;
-        top: 1rem;
-        right: 1rem;
+      top: 1rem;
+      right: 1rem;
     }
     button:focus {
-      border: 2px solid blue;
+      fill: blue;
     }
     h1 {
-      margin: 10px 0;
+      margin: 0;
     }
   </style>
 `;
@@ -61,7 +61,12 @@ const html = `
   <div class="wrapper">
     <div class="overlay"></div>
     <div class="dialog" role="dialog" aria-labelledby="title" aria-describedby="content">
-      <button class="close" aria-label="Close">✖️</button>
+      <button class="close" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0V0z"/>
+          <path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/>
+        </svg>
+      </button>
       <h1 id="title"><slot name="heading"></slot></h1>
       <div id="content" class="content">
         <slot></slot>
@@ -79,6 +84,7 @@ class ModalDialog extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.close = this.close.bind(this);
+    this._watchEscape = this._watchEscape.bind(this);
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
@@ -143,7 +149,14 @@ class ModalDialog extends HTMLElement {
 
 customElements.define('modal-dialog', ModalDialog);
 
-const trigger = document.getElementById('trigger-modal');
-trigger.addEventListener('click', () => {
-  document.querySelector('modal-dialog').open = true;
+const triggersCollection = document.getElementsByClassName('trigger-modal');
+const triggersArray = [...triggersCollection];
+
+triggersArray.map(item => {
+  const modal = item.dataset.modal;
+  const modalNode = document.querySelector(`[data-name=${modal}]`);
+
+  item.addEventListener('click', () => {
+    modalNode.open = true;
+  })
 })
